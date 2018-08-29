@@ -7,7 +7,7 @@ import json404 from './middleware/json-404';
 
 const app = express();
 
-export default app;
+module.exports = app;
 import cowsay from 'cowsay';
 
 app.start = (port) =>
