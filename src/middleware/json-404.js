@@ -1,15 +1,15 @@
 'use strict';
 
-export default (err, req, res, next) => {
-  console.error(err);
+//this is 404 not error
 
+export default (req, res, next) => {
   if (req.headers['accept'] !== 'application/json') {
-    next(err);
+    next();
     return;
   }
 
-  res.statusCode = 500;
+  res.statusCode = 404;
   res.json({
-    error: err.message,
+    error: 'Not Found',
   });
 };
