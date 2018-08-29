@@ -1,5 +1,7 @@
 'use strict';
 
+// TODO: this is actually 404
+
 export default (req, res, next) => {
   if (req.headers['accept'] !== 'application/json') {
     next();
