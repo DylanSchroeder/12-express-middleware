@@ -1,13 +1,18 @@
 'use strict';
 
-export default (req, res, next) => {
+//this is error not 404
+const debug = require('debug')('app:error');
+
+export default (err, req, res, next) => {
+  debug(err);
+
   if (req.headers['accept'] !== 'application/json') {
-    next();
+    next(err);
     return;
   }
 
-  res.statusCode = 404;
+  res.statusCode = 500;
   res.json({
-    error: 'Not Found',
+    error: err.message,
   });
 };
