@@ -1,6 +1,10 @@
 'use strict';
 
 import express from 'express';
+import morgan from 'morgan';
+import errorMiddleware from './middleware/error';
+import json404 from './middleware/json-404';
+
 const app = express();
 
 export default app;
@@ -17,12 +21,14 @@ app.start = (port) =>
     });
   });
 
+app.use(morgan('dev'));
 app.use(express.json());
-app.use((req, res, next)=> {
-  console.log(`${req.method} ${req.url}`);
-  next();
-});
+// app.use((req, res, next)=> {
+//   console.log(`${req.method} ${req.url}`);
+//   next();
+// });
 
+//Think this might be get
 app.post('/500', (req, res)=> {
   throw new Error('Test Error');
 });
@@ -45,10 +51,8 @@ app.get('/api/cowsay', (req, res) =>{
 
 import router from './routes/api';
 app.use(router);
-app.use ((err, req, res, next)=> {
-  console.error(err);
-  next(err);
-});
+app.use(json404);
+app.use(errorMiddleware);
 
 
 function html(res, content, statusCode = 200, statusMessage = 'OK') {
