@@ -3,7 +3,7 @@
 const request = require('supertest');
 import app from '../src/app';
 import Hero from '../src/models/hero';
-// import Hero from '../src/models/hero';
+
 
 describe('app', () => {
   it('responds with 404 for unknown path', ()=>{
@@ -82,20 +82,20 @@ describe('app', () => {
     //     });
     // });
 
-    // it('can POST /api/heroes to create hero', () => {
-    //   return request(app)
-    //     .post('/api/heroes')
-    //     .send({ name: 'Batman', universe: 'DC', power: 'rich' })
-    //     .expect(200)
-    //     .expect('Content-Type', 'application/json; charset=utf-8')
-    //     .expect(response => {
-    //       expect(response.body).toBeDefined();
-    //       expect(response.body.id).toBeDefined();
-    //       expect(response.body.name).toBe('Batman');
-    //       expect(response.body.universe).toBe('DC');
-    //       expect(response.body.power).toBe('rich');
-    //     });
-    // });
+    it('can POST /api/heroes to create hero', () => {
+      return request(app)
+        .post('/api/heroes')
+        .send({ name: 'Batman', universe: 'DC', power: 'rich' })
+        .expect(200)
+        .expect('Content-Type', 'application/json; charset=utf-8')
+        .expect(response => {
+          expect(response.body).toBeDefined();
+          expect(response.body.id).toBeDefined();
+          expect(response.body.name).toBe('Batman');
+          expect(response.body.universe).toBe('DC');
+          expect(response.body.power).toBe('rich');
+        });
+    });
   });
 
 });
